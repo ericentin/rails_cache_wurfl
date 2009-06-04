@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class MemcacheWurflTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
+  test "load wurfl XML into pstore" do
+    require 'memcache_wurfl/wurfl_load'
+    loader = WurflLoader.new
+    puts `pwd`
+    loader.load_wurfl_old('../../../tmp/wurfl/wurfl.xml')
     assert true
   end
 end
