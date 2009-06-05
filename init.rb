@@ -1,2 +1,3 @@
 # Include hook code here
-require 'memcache_wurfl'
+require 'rails_cache_wurfl'
+
