@@ -1,5 +1,4 @@
 require 'rails_cache_wurfl/wurfl/wurflhandset'
-require 'rails_cache_wurfl/wurfl/wurflutils'
 require 'rubygems'
 require 'nokogiri'
 
@@ -57,7 +56,7 @@ class WurflLoader
 
       rcount += 1
       hands = nil # the reference to the current handset
-      if element.attributes["id"] == "generic"
+      if element.attributes["id"].to_s == "generic"
         # setup the generic Handset 
 
         if @handsets.key?("generic") then
@@ -75,7 +74,7 @@ class WurflLoader
         # Setup an actual handset
 
         # check if handset already exists.
-        wurflid = element.attributes["id"]	
+        wurflid = element.attributes["id"].to_s	
         if @handsets.key?(wurflid)
           # Must have been created by someone who named it as a fallback earlier.
           hands = @handsets[wurflid]
@@ -83,10 +82,10 @@ class WurflLoader
           hands = WurflHandset::new "",""
         end
         hands.wurfl_id = wurflid
-        hands.user_agent = element.attributes["user_agent"]
+        hands.user_agent = element.attributes["user_agent"].to_s
 
         # get the fallback and copy it's values into this handset's hashtable
-        fallb = element.attributes["fall_back"]
+        fallb = element.attributes["fall_back"].to_s
 
         # for tracking of who has fallbacks
         if !@fallbacks.key?(fallb)
@@ -104,7 +103,7 @@ class WurflLoader
 
       # now copy this handset's specific capabilities into it's hashtable
       element.xpath("./*/capability").each do |el2|
-        hands[el2.attributes["name"]] = el2.attributes["value"]
+        hands[el2.attributes["name"].to_s] = el2.attributes["value"].to_s
       end
       @handsets[hands.wurfl_id] = hands
 

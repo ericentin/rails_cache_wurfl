@@ -7,7 +7,10 @@ end
 def initialize_cache
   # Prevent more than one process from trying to initialize the cache.
   return unless Rails.cache.write('wurfl_initialized', true, :unless_exist => true)
-  puts 'should only see this once'
+  
   # Proceed to initialize the cache.
   handsets, fallbacks = load_wurfl
+  handsets.each_value do |handset|
+    Rails.cache.write(handset.user_agent.tr(' ', ''), handset)
+  end
 end

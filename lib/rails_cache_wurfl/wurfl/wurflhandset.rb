@@ -52,8 +52,8 @@ class WurflHandset
   def initialize (wurfl_id,useragent,fallback=nil) 
     # A hash to hold keys and values specific to this handset
     @capabilityhash = Hash::new 
-    @wurfl_id = wurfl_id
-    @user_agent = useragent
+    @wurfl_id = wurfl_id.to_s
+    @user_agent = useragent.to_s
     @fallback = fallback
   end
 
@@ -89,7 +89,7 @@ class WurflHandset
 
   # Setter, A method to set a key and value of the handset.
   def []= (key,val)
-    @capabilityhash[key] = val
+    @capabilityhash[key] = val.to_s
   end
 
   # A Method to iterate over all of the keys and values that the handset has.
