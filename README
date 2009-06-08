@@ -1,4 +1,4 @@
-MemcacheWurfl
+rails_cache_wurfl
 =============
 
 
@@ -6,5 +6,4 @@ Example
 =======
 
 
-
-Copyright (c) 2009 [name of plugin creator], released under the MIT license
+Original Code: Copyright (c) 2009  Socialight, released under the MIT license

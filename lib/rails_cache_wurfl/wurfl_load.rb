@@ -115,7 +115,6 @@ class WurflLoader
         puts "a handset with a nil agent at #{rcount}"
       end           
     end
-    WurflUtils.save_wurfl_pstore('pstore', @handsets, @fallbacks)
     return @handsets, @fallbacks
   end
 
