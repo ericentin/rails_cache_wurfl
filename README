@@ -1,9 +1,30 @@
-rails_cache_wurfl
-=============
+A plugin for Ruby on Rails that will allow you to store a copy of the WURFL database in your Rails integrated cache (e.g. MemCached, FileStore, MemStore) and query it for phone capabilities via view helpers which access the user's session (which stores the capabilities). Also provides a rake task to download the latest wurfl database and update the cache in-place.
 
+Dependencies
 
-Example
-=======
+Nokogiri, RSpec (if you wish to run the tests)
 
+Install
 
-Original Code: Copyright (c) 2009  Socialight, released under the MIT license
+script/plugin install git://github.com/antipax/rails_cache_wurfl.git
+rake wurfl:update
+
+License
+
+MIT license for original code.
+
+Authors
+
+Eric Entin (eric@socialight.com) 
+
+Contact
+
+Eric Entin (eric@socialight.com) 
+
+Download
+
+You can clone the project with Git by running:
+
+$ git clone git://github.com/antipax/rails_cache_wurfl
+
+Original Code: Copyright (c) 2009 Socialight, released under the MIT license
