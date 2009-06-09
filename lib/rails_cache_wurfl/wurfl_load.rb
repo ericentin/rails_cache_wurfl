@@ -58,7 +58,7 @@ class WurflLoader
       hands = nil # the reference to the current handset
       if element.attributes["id"].to_s == "generic"
         # setup the generic Handset 
-
+        element.attributes["user_agent"] = "generic"
         if @handsets.key?("generic") then
           hands = @handsets["generic"]
           puts "Updating the generic handset at count #{rcount}" if @verbose	
@@ -83,6 +83,7 @@ class WurflLoader
         end
         hands.wurfl_id = wurflid
         hands.user_agent = element.attributes["user_agent"].to_s
+        hands.user_agent = 'generic' if hands.user_agent.empty?
 
         # get the fallback and copy it's values into this handset's hashtable
         fallb = element.attributes["fall_back"].to_s
