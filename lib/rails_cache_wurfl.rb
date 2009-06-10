@@ -6,7 +6,7 @@ module RailsCacheWurfl
     # determine if the cache has been initialized with the wurfl
     puts 'init'
     initialize_cache if Rails.cache.read('wurfl_initialized').nil?
-
+    debugger
     # add the helper to the app's load paths
     path = File.join(File.dirname(__FILE__), 'app', 'helpers')
     $LOAD_PATH << path
@@ -15,6 +15,10 @@ module RailsCacheWurfl
   end
   
   def self.get_phone(user_agent)
-    phone = Rails.cache.read('user_agent'.tr(' ', ''))
+    user_agent.slice!(250..-1)
+    phone = Rails.cache.read(user_agent.tr(' ', ''))
+    return nil if user_agent.chop!.nil?
+    return self.get_phone(user_agent) if phone.nil?
+    return phone
   end
 end
