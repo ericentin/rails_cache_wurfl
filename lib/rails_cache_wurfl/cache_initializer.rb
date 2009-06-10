@@ -1,7 +1,7 @@
 require 'rails_cache_wurfl/wurfl_load'
 def load_wurfl
   wurfl_loader = WurflLoader.new
-  return wurfl_loader.load_wurfl(Rails.root.join('tmp/wurfl/wurfl.xml'))
+  return wurfl_loader.load_wurfl(Rails.root.join('tmp', 'wurfl', 'wurfl.xml'))
 end
 
 def cache_initialized?

@@ -1,4 +1,4 @@
-A plugin for Ruby on Rails that will allow you to store a copy of the WURFL database in your Rails integrated cache (e.g. MemCached, FileStore, MemStore) and query it for phone capabilities via view helpers which access the user's session (which stores the capabilities). Also provides a rake task to download the latest wurfl database and update the cache in-place.
+A plugin for Ruby on Rails that will allow you to store a copy of the WURFL database in your Rails integrated cache (e.g. MemCached, FileStore, MemStore) and query it for handset capabilities via additions to ActionView which access the user's session (which stores a representation of the phone). Also provides a rake task to download the latest wurfl database and update the cache in-place.
 
 Dependencies
 

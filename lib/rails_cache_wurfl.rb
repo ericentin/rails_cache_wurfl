@@ -14,19 +14,19 @@ module RailsCacheWurfl
     Rails.cache.silence!
   end
   
-  def self.get_phone(user_agent)
+  def self.get_handset(user_agent)
     cache_initialized?
     user_agent.slice!(250..-1)
-    phone = Rails.cache.read(user_agent.tr(' ', ''))
+    handset = Rails.cache.read(user_agent.tr(' ', ''))
     chopped_user_agent = user_agent.chop
     return nil, '' if chopped_user_agent.empty?
-    return self.get_phone(chopped_user_agent) if phone.nil?
-    return phone
+    return self.get_handset(chopped_user_agent) if handset.nil?
+    return handset
   end
   
   def check_wurfl_filter
-    return unless session[:phone_checked].nil?
-    session[:phone_agent] = RailsCacheWurfl.get_phone(request.headers['HTTP_USER_AGENT']).user_agent
-    session[:phone_checked] = true
+    return unless session[:handset_checked].nil?
+    session[:handset_agent] = RailsCacheWurfl.get_handset(request.headers['HTTP_USER_AGENT']).user_agent
+    session[:handset_checked] = true
   end
 end
