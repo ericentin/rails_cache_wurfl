@@ -9,6 +9,20 @@ Install
 script/plugin install git://github.com/antipax/rails_cache_wurfl.git
 rake wurfl:update
 
+If you want to download the latest wurfl.xml and update the cache in place:
+rake wurfl:update
+rake wurfl:cache_update
+
+Example
+
+In ApplicationController.rb (or wherever you're going to use WURFL):
+  before_filter :set_wurfl
+  
+In your views:
+  <% if handset_capability('mp3') %>
+    <%= link_for_mp3 %>
+  <% end %>
+
 License
 
 MIT license for original code.
@@ -25,6 +39,6 @@ Download
 
 You can clone the project with Git by running:
 
-$ git clone git://github.com/antipax/rails_cache_wurfl
+$ git clone git://github.com/antipax/rails_cache_wurfl.git
 
 Original Code: Copyright (c) 2009 Socialight, released under the MIT license
