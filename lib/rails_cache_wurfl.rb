@@ -15,7 +15,7 @@ module RailsCacheWurfl
     user_agent.slice!(250..-1)
     handset = Rails.cache.read(user_agent.tr(' ', ''))
     chopped_user_agent = user_agent.chop
-    return nil, '' if chopped_user_agent.empty?
+    return nil if chopped_user_agent.empty?
     return self.get_handset(chopped_user_agent) if handset.nil?
     return handset
   end

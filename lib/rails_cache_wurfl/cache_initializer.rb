@@ -1,7 +1,12 @@
 require Pathname.new(File.dirname(__FILE__)).join('wurfl', 'wurfl_load')
 def load_wurfl
   wurfl_loader = WurflLoader.new
-  return wurfl_loader.load_wurfl(Rails.root.join('tmp', 'wurfl', 'wurfl.xml'))
+  path_to_wurfl = Rails.root.join('tmp', 'wurfl', 'wurfl.xml')
+  unless path_to_wurfl.exist?
+    puts 'Could not find wurfl.xml. Have you run rake wurfl:update yet?'
+    Process.exit
+  end
+  return wurfl_loader.load_wurfl(path_to_wurfl)
 end
 
 def cache_initialized?
