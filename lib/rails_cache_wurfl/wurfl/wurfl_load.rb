@@ -1,4 +1,4 @@
-require 'rails_cache_wurfl/wurfl/wurflhandset'
+require Pathname.new(File.dirname(__FILE__)).join('wurflhandset')
 require 'rubygems'
 require 'nokogiri'
 
