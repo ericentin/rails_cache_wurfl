@@ -1,4 +1,4 @@
-require 'rails_cache_wurfl/wurfl/wurfl_load'
+require Pathname.new(File.dirname(__FILE__)).join('wurfl', 'wurfl_load')
 def load_wurfl
   wurfl_loader = WurflLoader.new
   return wurfl_loader.load_wurfl(Rails.root.join('tmp', 'wurfl', 'wurfl.xml'))
@@ -20,11 +20,19 @@ def initialize_cache
   
   Rails.cache.write('wurfl_initialized', false)
   # Proceed to initialize the cache.
+  xml_to_cache
+  Rails.cache.write('wurfl_initialized', true)
+  Rails.cache.write('wurfl_initializing', false)
+end
+
+def xml_to_cache
   handsets, fallbacks = load_wurfl
   handsets.each_value do |handset|
     Rails.cache.write(handset.user_agent.tr(' ', ''), handset)
   end
-  Rails.cache.write('wurfl_initialized', true)
-  Rails.cache.write('wurfl_initializing', false)
+end
+
+def refresh_cache
+  xml_to_cache
 end
 

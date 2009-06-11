@@ -12,4 +12,12 @@ namespace :wurfl do
     return_code = `gunzip -c wurfl-latest.xml.gz > wurfl.xml`.to_i
     raise 'Failed to unzip wurfl-latest.xml.gz' unless return_code == 0
   end
+  
+  desc "Load the latest XML file into the cache."
+  task :cache_update do
+    require Pathname.new(File.dirname(__FILE__)).join('..', 'lib', 'rails_cache_wurfl', 'cache_initializer')
+    require Rails.root.join('config', 'environment.rb')
+    puts 'This can take a minute or two. Thank you for your patience.'
+    refresh_cache
+  end
 end
