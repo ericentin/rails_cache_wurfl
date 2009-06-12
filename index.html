@@ -52,32 +52,32 @@
       This plugin combines the persistence and quick access of memcachedb (http://www.memcachedb.org) with the WURFL (http://wurfl.sourceforge.net) to allow your Rails views to easily access the capabilities of the current user's handset or browsing device.
     </div>
 
-    <p>The plugin uses Rails' built-in cache access functionality to access memcachedb through a memcached interface. Rake tasks are provided to download and uncompress the latest WURFL as well as update and/or populate your memcachedb with a new WURFL, even while your app is running.
-
-Even though you could theoretically use memcached instead of memcachedb, you shouldn’t! You couldn’t use that instance for anything but the WURFL, because unused key-value pairs will be thrown out when there is no room for them and your lookups will start failing. Due to the (appropriate) behavior of memcached, you will not be notified! Memcachedb alleviates this problem because it will not throw out data without specifically being told to. Another advantage that you will lose if you use memcached is startup time; your server (or one process of your server cluster) will spend around a minute loading the WURFL from xml into the cache each time the memcached instance is restarted.
-
-So: DON’T use memcached instead of memcachedb!!!
-
-You could also theoretically use Tokyo Cabinet/Tyrant or any other persistent key-value datastore with a memcached interface, though I haven't tested it.
-
+    <p>The plugin uses Rails' built-in cache access functionality to access memcachedb through a memcached interface. Rake tasks are provided to download and uncompress the latest WURFL as well as update and/or populate your memcachedb with a new WURFL, even while your app is running.<br />
+<br />
+Even though you could theoretically use memcached instead of memcachedb, you shouldn’t! You couldn’t use that instance for anything but the WURFL, because unused key-value pairs will be thrown out when there is no room for them and your lookups will start failing. Due to the (appropriate) behavior of memcached, you will not be notified! Memcachedb alleviates this problem because it will not throw out data without specifically being told to. Another advantage that you will lose if you use memcached is startup time; your server (or one process of your server cluster) will spend around a minute loading the WURFL from xml into the cache each time the memcached instance is restarted.<br />
+<br />
+So: DON’T use memcached instead of memcachedb!!!<br />
+<br />
+You could also theoretically use Tokyo Cabinet/Tyrant or any other persistent key-value datastore with a memcached interface, though I haven't tested it.<br />
+<br />
 This plugin is best used if you already know a user is on a mobile phone. Other plugins handle this well. The WURFL doesn’t seem to report accurate capabilities for desktop web browsers.</p><h2>Dependencies</h2>
 <p>Nokogiri, RSpec (if you wish to run the tests)</p>
 <h2>Install</h2>
-<p>script/plugin install git://github.com/antipax/rails_cache_wurfl.git
-
-(If your memcachedb (or whatever memcached interfaced datastore you use) isn't running at localhost:21201, go to rails_cache_wurfl/lib/rails_cache_wurfl.rb and change the obvious-looking constant at the top to point to it.)
-
-rake wurfl:update
-rake wurfl:cache_update
-
-In ApplicationController.rb (or wherever you're going to use WURFL):
-  before_filter :set_wurfl
-  
-In your views:
-  <% if handset_capability('mp3') %>
-    <%= link_for_mp3 %>
-  <% end %>
-
+<p>script/plugin install git://github.com/antipax/rails_cache_wurfl.git<br />
+<br />
+(If your memcachedb (or whatever memcached interfaced datastore you use) isn't running at localhost:21201, go to rails_cache_wurfl/lib/rails_cache_wurfl.rb and change the obvious-looking constant at the top to point to it.)<br />
+<br />
+rake wurfl:update<br />
+rake wurfl:cache_update<br />
+<br />
+In ApplicationController.rb (or wherever you're going to use WURFL):<br />
+  before_filter :set_wurfl<br />
+  <br />
+In your views:<br />
+  &lt;% if handset_capability('mp3') %&gt;<br />
+    &lt;%= link_for_mp3 %&gt;<br />
+  &lt;% end %&gt;<br />
+<br />
 If you want to download the latest wurfl.xml and update the cache in place:
 rake wurfl:update
 rake wurfl:cache_update
@@ -85,9 +85,12 @@ rake wurfl:cache_update
 <h2>License</h2>
 <p>MIT</p>
 <h2>Authors</h2>
-<p>Eric Entin (eric@socialight.com)<br/><br/>      </p>
+<p>Eric Entin (eric@socialight.com)
+<br/>
+<br/>      </p>
 <h2>Contact</h2>
-<p>Eric Entin (eric@socialight.com)<br/>      </p>
+<p>Eric Entin (eric@socialight.com)
+<br/>      </p>
 
 
     <h2>Download</h2>
