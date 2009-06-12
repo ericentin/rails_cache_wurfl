@@ -3,17 +3,22 @@ require 'rails_cache_wurfl/view'
 require 'rails_cache_wurfl/filter'
 
 module RailsCacheWurfl
+  attr_accessor :cache
+  def self.cache
+    @cache
+  end
+  
   def self.init
+    @cache = ActiveSupport::Cache.lookup_store(:mem_cache_store, '127.0.0.1:21201')
     # determine if the cache has been initialized with the wurfl
-    initialize_cache if Rails.cache.read('wurfl_initialized').nil?
-    #ApplicationController.before_filter :check_wurfl_filter
+    CacheInitializer.initialize_cache if RailsCacheWurfl.cache.read('wurfl_initialized').nil?
   end
   
   def self.get_handset(user_agent)
     return nil if user_agent.nil?
-    cache_initialized?
+    CacheInitializer.cache_initialized?
     user_agent.slice!(250..-1)
-    handset = Rails.cache.read(user_agent.tr(' ', ''))
+    handset = @cache.read(user_agent.tr(' ', ''))
     chopped_user_agent = user_agent.chop
     return nil if chopped_user_agent.empty?
     return self.get_handset(chopped_user_agent) if handset.nil?

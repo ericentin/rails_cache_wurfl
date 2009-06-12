@@ -17,7 +17,7 @@ namespace :wurfl do
   task :cache_update do
     require Pathname.new(File.dirname(__FILE__)).join('..', 'lib', 'rails_cache_wurfl', 'cache_initializer')
     require Rails.root.join('config', 'environment.rb')
-    puts 'This can take a minute or two. Thank you for your patience.'
-    refresh_cache
+    puts 'This can take a minute or two. Be patient.'
+    RailsCacheWurfl::CacheInitializer.refresh_cache
   end
 end
