@@ -24,18 +24,19 @@ module RailsCacheWurfl
     def self.initialize_cache
       # Prevent more than one process from trying to initialize the cache.
       return unless RailsCacheWurfl.cache.write('wurfl_initializing', true, :unless_exist => true)
+
+      RailsCacheWurfl.cache.write('wurfl_initialized', false)
       # Proceed to initialize the cache.
       xml_to_cache
+      RailsCacheWurfl.cache.write('wurfl_initializing', false)
     end
 
     def self.xml_to_cache
-      RailsCacheWurfl.cache.write('wurfl_initialized', false)
       handsets, fallbacks = load_wurfl
       handsets.each_value do |handset|
         RailsCacheWurfl.cache.write(handset.user_agent.tr(' ', ''), handset)
       end
       RailsCacheWurfl.cache.write('wurfl_initialized', true)
-      RailsCacheWurfl.cache.write('wurfl_initializing', false)
     end
 
     def self.refresh_cache
