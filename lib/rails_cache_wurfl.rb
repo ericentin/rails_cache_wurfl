@@ -2,7 +2,7 @@ require 'rails_cache_wurfl/cache_initializer'
 require 'rails_cache_wurfl/view'
 require 'rails_cache_wurfl/filter'
 
-MEMCACHEDB_ADDRESS = '127.0.0.1:21201'
+MEMCACHEDB_ADDRESS = '127.0.0.1:11311'
 
 module RailsCacheWurfl
   attr_accessor :cache
@@ -12,6 +12,7 @@ module RailsCacheWurfl
   
   def self.init
     @cache = ActiveSupport::Cache.lookup_store(:mem_cache_store, MEMCACHEDB_ADDRESS)
+    @cache.logger = Rails.logger
     # determine if the cache has been initialized with the wurfl
     CacheInitializer.initialize_cache if RailsCacheWurfl.cache.read('wurfl_initialized').nil?
   end
