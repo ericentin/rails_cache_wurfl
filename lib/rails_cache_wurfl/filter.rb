@@ -30,7 +30,7 @@ module RailsCacheWurfl
       protected
       def set_mobile_format
         request.format = :mobile if @handset && @handset.is_wireless_device? && request.format != :js
-        Rails.logger.debug "Request Format #{request.format}"
+        request.format = :html5 if @handset.user_agent =~ /(iPhone|Android)/
       end
     end
   end
