@@ -7,7 +7,7 @@ module RailsCacheWurfl
     
     module ActMethods 
       def acts_as_mobile(opts={})
-        $force_mobile = opts.has_key?(:force_mobile) ? opts.delete(:force_mobile) : false
+        $force = opts.has_key?(:force) ? opts.delete(:force) : false
         unless included_modules.include? InstanceMethods 
           extend ClassMethods
           prepend_before_filter :set_mobile_format, :handset
@@ -33,7 +33,7 @@ module RailsCacheWurfl
         # This no longer sets the request format but instead just give the opportunity to override
         # layouts, templates or partials for specific device capabilities
       def set_mobile_format
-        if @handset.user_agent =~ /(iPhone|Android)/
+        if @handset.user_agent =~ /(iPhone|Android)/ || ($force == :html5)
           format, @xhtml_support_level = :html5, @handset.xhtml_support_level
           prepend_custom_format_view_path(:html5) 
         elsif @handset && @handset.is_wireless_device? && request.format != :js
