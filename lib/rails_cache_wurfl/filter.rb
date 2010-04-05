@@ -33,27 +33,28 @@ module RailsCacheWurfl
         # This no longer sets the request format but instead just give the opportunity to override
         # layouts, templates or partials for specific device capabilities
       def set_mobile_format
+        debugger
         if @handset.user_agent =~ /(iPhone|Android)/ || ($force == :html5)
           format, @xhtml_support_level = :html5, @handset.xhtml_support_level
+          prepend_mobile_format_view_path(@xhtml_support_level)
           prepend_custom_format_view_path(:html5) 
         elsif @handset && @handset.is_wireless_device? && request.format != :js
           format, @xhtml_support_level = :mobile,  @handset.xhtml_support_level 
-          prepend_mobile_format_view_path(format, @xhtml_support_level)
+          prepend_mobile_format_view_path(@xhtml_support_level)
         end
       end
       
-      def prepend_mobile_format_view_path(format, level)
-        self.prepend_view_path "app/views_custom/#{format.to_s}"
+      def prepend_mobile_format_view_path(level)
         case level
           when :high 
-            self.prepend_view_path "app/views_custom/#{format.to_s}/low"
-            self.prepend_view_path "app/views_custom/#{format.to_s}/mid"
-            self.prepend_view_path "app/views_custom/#{format.to_s}/high"
+            self.prepend_view_path "app/views_custom/mobile_base"
+            self.prepend_view_path "app/views_custom/mobile_mid"
+            self.prepend_view_path "app/views_custom/mobile_high"
           when :mid
-            self.prepend_view_path "app/views_custom/#{format.to_s}/low"
-            self.prepend_view_path "app/views_custom/#{format.to_s}/mid"
+            self.prepend_view_path "app/views_custom/mobile_base"
+            self.prepend_view_path "app/views_custom/mobile_mid"
           when :low
-            self.prepend_view_path "app/views_custom/#{format.to_s}/low"
+            self.prepend_view_path "app/views_custom/mobile_base"
         end
       end
       
