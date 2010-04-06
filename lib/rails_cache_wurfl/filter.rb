@@ -33,7 +33,6 @@ module RailsCacheWurfl
         # This no longer sets the request format but instead just give the opportunity to override
         # layouts, templates or partials for specific device capabilities
       def set_mobile_format
-        debugger
         if @handset.user_agent =~ /(iPhone|Android)/ || ($force == :html5)
           format, @xhtml_support_level = :html5, @handset.xhtml_support_level
           prepend_mobile_format_view_path(@xhtml_support_level)
