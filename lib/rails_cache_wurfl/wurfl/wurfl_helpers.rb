@@ -42,6 +42,14 @@ module WurflHelpers
     capability(:ajax_manipulate_css)
   end
   
+  def supports_external_css?
+    [:high, :mid].include?(xhtml_support_level)
+  end
+  
+  def supports_css?
+    [:low, :mid, :high].include?(xhtml_support_level)
+  end
+  
   def supports_ajax?
     capability(:ajax_xhr_type) != 'none'
   end

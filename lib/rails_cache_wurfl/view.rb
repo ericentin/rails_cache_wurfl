@@ -17,6 +17,5 @@ module RailsCacheWurfl
          " style='width:240px;'"
        end
     end
-
   end
 end
