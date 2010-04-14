@@ -8,7 +8,8 @@ module WurflHelpers
   end
   
   def xhtml_support_level
-    case capability(:xhtml_support_level)
+    @xhtml_support_level ||= capability(:xhtml_support_level)
+    case @xhtml_support_level
     when '-1'
       # no XHTML support at all
       return :none
@@ -28,6 +29,10 @@ module WurflHelpers
       # Awesomeness, iPhone and so on
       return :high
     end
+  end
+  
+  def xhtml_support_level=(value)
+    @xhtml_support_level = value
   end
   
   def low?
