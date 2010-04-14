@@ -25,6 +25,9 @@ module WurflHelpers
     when '3'
       # Full XHTML with excellent CSS support
       return :mid
+    when '3.5' 
+      # Special case
+      return :mid_high
     when '4'
       # Awesomeness, iPhone and so on
       return :high
