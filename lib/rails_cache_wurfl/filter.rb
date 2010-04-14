@@ -24,12 +24,16 @@ module RailsCacheWurfl
     module InstanceMethods            
       def handset
         @handset ||= RailsCacheWurfl.get_handset(request.headers['HTTP_USER_AGENT'])
-        @handset.xhtml_support_level = request.params[:ol] if request.params[:ol] #Debugging
+        check_override
+        @handset
         # TODO: Revise whether we want to rather cache handset in session. 
         # Suspect the memcache solution might be quicker than mysql based session. Need to bench
       end
       
       protected
+      def check_override
+        @handset.xhtml_support_level = request.params[:ol] if request.params[:ol] #Debugging
+      end
         # This no longer sets the request format but instead just give the opportunity to override
         # layouts, templates or partials for specific device capabilities
       def set_mobile_format
