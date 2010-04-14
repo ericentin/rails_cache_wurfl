@@ -48,6 +48,10 @@ module RailsCacheWurfl
             self.prepend_view_path "app/views_custom/mobile_base"
             self.prepend_view_path "app/views_custom/mobile_mid"
             self.prepend_view_path "app/views_custom/mobile_high"
+          when :mid_high
+            self.prepend_view_path "app/views_custom/mobile_base"
+            self.prepend_view_path "app/views_custom/mobile_mid"
+            self.prepend_view_path "app/views_custom/mobile_mid_high"
           when :mid
             self.prepend_view_path "app/views_custom/mobile_base"
             self.prepend_view_path "app/views_custom/mobile_mid"
