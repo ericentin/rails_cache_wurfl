@@ -24,7 +24,7 @@ module RailsCacheWurfl
     module InstanceMethods            
       def handset
         @handset ||= RailsCacheWurfl.get_handset(request.headers['HTTP_USER_AGENT'])
-        @handset.xhtml_support_level = request.params[:ol] if request.param[:ol] #Debugging
+        @handset.xhtml_support_level = request.params[:ol] if request.params[:ol] #Debugging
         # TODO: Revise whether we want to rather cache handset in session. 
         # Suspect the memcache solution might be quicker than mysql based session. Need to bench
       end
