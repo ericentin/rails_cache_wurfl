@@ -51,11 +51,11 @@ module WurflHelpers
   end
   
   def supports_external_css?
-    [:high, :mid].include?(xhtml_support_level)
+    [:high, :mid, :mid_high].include?(xhtml_support_level)
   end
   
   def supports_css?
-    [:low, :mid, :high].include?(xhtml_support_level)
+    [:low, :mid, :mid_high, :high].include?(xhtml_support_level)
   end
   
   def supports_ajax?
