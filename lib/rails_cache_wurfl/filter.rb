@@ -30,7 +30,7 @@ module RailsCacheWurfl
       
       protected
       def create_empty
-        handset = WurflHandset.new(nil, request.headers['HTTP_USER_AGENT']))
+        handset = WurflHandset.new(nil, request.headers['HTTP_USER_AGENT'])
         handset.xhtml_support_level = 3
         handset
       end
