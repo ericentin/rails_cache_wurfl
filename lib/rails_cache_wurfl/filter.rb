@@ -26,6 +26,7 @@ module RailsCacheWurfl
         @handset ||= (RailsCacheWurfl.get_handset(request.headers['HTTP_USER_AGENT']) || create_empty())
         # TODO: Revise whether we want to rather cache handset in session. 
         # Suspect the memcache solution might be quicker than mysql based session. Need to bench
+        Rails.logger.info "[HTTP_USER_AGENT : #{request.headers['HTTP_USER_AGENT'])}]"
       end
       
       protected
