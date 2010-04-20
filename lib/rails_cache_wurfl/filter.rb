@@ -26,7 +26,6 @@ module RailsCacheWurfl
         @handset ||= (RailsCacheWurfl.get_handset(request.headers['HTTP_USER_AGENT']) || create_empty())
         # TODO: Revise whether we want to rather cache handset in session. 
         # Suspect the memcache solution might be quicker than mysql based session. Need to bench
-        Rails.logger.info "[HTTP_USER_AGENT : #{request.headers['HTTP_USER_AGENT'])}]"
       end
       
       protected
@@ -48,6 +47,7 @@ module RailsCacheWurfl
         # This no longer sets the request format but instead just give the opportunity to override
         # layouts, templates or partials for specific device capabilities
       def set_mobile_format
+        Rails.logger.info "[HTTP_USER_AGENT : #{request.headers['HTTP_USER_AGENT']}]"
         #check_override
         if @handset.user_agent =~ /(iPhone|Android)/ || ($force == :html5)
           format, @xhtml_support_level = :html5, @handset.xhtml_support_level
