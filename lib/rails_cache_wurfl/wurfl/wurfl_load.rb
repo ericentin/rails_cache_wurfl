@@ -43,11 +43,23 @@ class WurflLoader
     @handsets = Hash::new
     @fallbacks = Hash::new
   end
+  
+  def process_patch_files(doc, patch_files)
+    Dir.glob(patch_files).each do |patch_file|
+      process_patch_file(doc, Nokogiri::XML::Document.parse(patch_file))
+    end
+  end
+  
+  def process_patch_file(doc, patch_doc)
+    puts "got patch_doc #{patch_doc.inspect}"
+    # TODO: Implement patch import
+  end
 
-  def load_wurfl(wurflfile)
+  def load_wurfl(wurflfile, patch_files)
     file = File.new(wurflfile)
     doc = Nokogiri::XML::Document.parse file
-
+    
+    process_patch_files(doc, patch_files)
     # read counter
     rcount = 0
 

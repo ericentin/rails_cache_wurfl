@@ -4,11 +4,12 @@ module RailsCacheWurfl
     def self.load_wurfl
       wurfl_loader = WurflLoader.new
       path_to_wurfl = Rails.root.join('tmp', 'wurfl', 'wurfl.xml')
+      path_to_patches = Rails.root.join('wurfl', '*.xml')
       unless path_to_wurfl.exist?
         puts 'Could not find wurfl.xml. Have you run rake wurfl:update yet?'
         Process.exit
       end
-      return wurfl_loader.load_wurfl(path_to_wurfl)
+      return wurfl_loader.load_wurfl(path_to_wurfl, path_to_patches)
     end
 
     def self.cache_initialized?
