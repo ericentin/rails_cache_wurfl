@@ -45,7 +45,7 @@ class WurflLoader
   end
   
   def process_patch_files(doc, patch_files)
-    Dir.glob(patch_files).each do |patch_file|
+    Dir.glob(patch_files.to_s).each do |patch_file|
       puts "<< Processing Patch #{patch_file} >>"
       process_patch_file(doc, Nokogiri::XML::Document.parse(File.new(patch_file)))
       puts "<< Patch Processed : #{patch_file} >>"
