@@ -2,7 +2,7 @@ require 'rails_cache_wurfl/cache_initializer'
 require 'rails_cache_wurfl/view'
 require 'rails_cache_wurfl/filter'
 
-MEMCACHEDB_ADDRESS = '127.0.0.1:11311'
+MEMCACHEDB_ADDRESS ||= '127.0.0.1:11311'
 
 module RailsCacheWurfl
   attr_accessor :cache
@@ -25,6 +25,6 @@ module RailsCacheWurfl
     chopped_user_agent = user_agent.chop
     return nil if chopped_user_agent.empty?
     return self.get_handset(chopped_user_agent) if handset.nil?
-    return handset
+    return handset.dup
   end
 end
