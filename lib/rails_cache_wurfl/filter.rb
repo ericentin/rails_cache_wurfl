@@ -57,7 +57,9 @@ module RailsCacheWurfl
         elsif @handset && @handset.is_wireless_device? && request.format != :js
           format, @xhtml_support_level = :mobile,  @handset.xhtml_support_level 
           prepend_mobile_format_view_path(@xhtml_support_level)
-#          set_content_type
+        else # Just defaulting to mid and assume a mobile site for now
+          format, @xhtml_support_level = :mobile, @handset.xhtml_support_level
+          prepend_mobile_format_view_path(@xhtml_support_level)
         end
       end
       
