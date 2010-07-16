@@ -48,6 +48,7 @@ module RailsCacheWurfl
         # layouts, templates or partials for specific device capabilities
       def set_mobile_format
         Rails.logger.info "[HTTP_USER_AGENT : #{request.headers['HTTP_USER_AGENT']}]"
+        Rails.logger.info "[RAILS_CACHE_WURFL-XHTML_SUPPORT_LEVEL] : #{@handset.xhtml_support_level}"
         #check_override
         if @handset.user_agent =~ /(iPhone|Android)/ || ($force == :html5)
           format, @xhtml_support_level = :html5, @handset.xhtml_support_level

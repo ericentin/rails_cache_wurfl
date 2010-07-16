@@ -11,6 +11,7 @@ module RailsCacheWurfl
   end
   
   def self.init
+    return nil if Rails.env == 'test'
     @cache = ActiveSupport::Cache.lookup_store(:mem_cache_store, MEMCACHEDB_ADDRESS)
     @cache.logger = Rails.logger
     # determine if the cache has been initialized with the wurfl
