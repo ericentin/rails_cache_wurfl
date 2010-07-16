@@ -15,6 +15,7 @@ module MobileActive
           sass_path = File.join(ActionView::Helpers::AssetTagHelper::STYLESHEETS_DIR,"sass","#{new_source}.sass")
           new_sources << new_source if File.exist?(path) || File.exist?(sass_path)
         end
+        debugger
         new_sources << opts
         stylesheet_link_tag_without_mobilization(*new_sources)
       else
