@@ -35,10 +35,10 @@ module RailsCacheWurfl
     def self.xml_to_cache
       handsets, fallbacks = load_wurfl
       handsets.each_value do |handset|
-        puts handset.user_agent
         # Special case for breaking characters in latest wurfl
         # TODO: Cleaner more generic solution
-        handset.user_agent.gsub!(/%\w /,'')
+        puts handset.user_agent
+        handset.user_agent.gsub!(/%\w|.% /,'')
         RailsCacheWurfl.cache.write(handset.user_agent.tr(' ', ''), handset)
       end
       RailsCacheWurfl.cache.write('wurfl_initialized', true)
