@@ -38,7 +38,7 @@ module RailsCacheWurfl
         puts handset.user_agent
         # Special case for breaking characters in latest wurfl
         # TODO: Cleaner more generic solution
-        handset.user_agent.gsub!(/%bv/, '')
+        handset.user_agent.gsub!(/%\w /,'')
         RailsCacheWurfl.cache.write(handset.user_agent.tr(' ', ''), handset)
       end
       RailsCacheWurfl.cache.write('wurfl_initialized', true)
