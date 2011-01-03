@@ -31,36 +31,37 @@ module RailsCacheWurfl
       protected
       def create_empty
         handset = WurflHandset.new(nil, request.headers['HTTP_USER_AGENT'])
-        handset.xhtml_support_level = 3
+        handset.xhtml_support_level = '4'
+        handset.supports_ajax = 'standard'
         handset
       end
       
       def check_override
-        if request.params[:ol]
-          session[:ol] = request.params[:ol]
-          session[:ol] = request.params[:ol] == "clear" ? nil : request.params[:ol]
-        end
-        if session[:ol]
-          @handset.xhtml_support_level = session[:ol]
+        if session[:ajaxified]
+          @handset.xhtml_support_level = '4'
+          @handset.supports_ajax = 'standard'
         end
       end
         # This no longer sets the request format but instead just give the opportunity to override
         # layouts, templates or partials for specific device capabilities
       def set_mobile_format
+        check_override
         Rails.logger.info "[HTTP_USER_AGENT : #{request.headers['HTTP_USER_AGENT']}]"
         Rails.logger.info "[RAILS_CACHE_WURFL-XHTML_SUPPORT_LEVEL] : #{@handset.xhtml_support_level}"
-        #check_override
         if @handset.user_agent =~ /(iPhone|Android)/ || ($force == :html5)
           format, @xhtml_support_level = :html5, @handset.xhtml_support_level
           prepend_mobile_format_view_path(@xhtml_support_level)
           prepend_custom_format_view_path(:html5) 
-        elsif @handset && @handset.is_wireless_device? && request.format != :js
+        elsif @handset && @handset.is_wireless_device?
           format, @xhtml_support_level = :mobile,  @handset.xhtml_support_level 
+          format = :js if request.format == :js
           prepend_mobile_format_view_path(@xhtml_support_level)
-        else # Just defaulting to mid and assume a mobile site for now
-          format, @xhtml_support_level = :mobile, @handset.xhtml_support_level
-          prepend_mobile_format_view_path(@xhtml_support_level)
+        # else # Just defaulting to mid and assume a mobile site for now
+        #   format, @xhtml_support_level = :mobile, @handset.xhtml_support_level
+        #   prepend_mobile_format_view_path(@xhtml_support_level)
         end
+        Rails.logger.info("[IS_WIRELESS_DEVICE?] : #{@handset.is_wireless_device?}")
+        
       end
       
       def prepend_mobile_format_view_path(level)

@@ -35,7 +35,11 @@ module WurflHelpers
   end
   
   def xhtml_support_level=(value)
-    @xhtml_support_level = value
+    @xhtml_support_level = @capabilityhash[:xhtml_support_level] = value
+  end
+  
+  def supports_ajax=(value)
+    self['ajax_xhr_type'] = value
   end
   
   def low?

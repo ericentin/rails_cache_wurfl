@@ -37,11 +37,23 @@ module RailsCacheWurfl
       handsets.each_value do |handset|
         # Special case for breaking characters in latest wurfl
         # TODO: Cleaner more generic solution
-        puts handset.user_agent
         handset.user_agent.gsub!(/%\w|.% /,'')
-        RailsCacheWurfl.cache.write(handset.user_agent.tr(' ', ''), handset)
+        ua = handset.user_agent.tr(' ', '')
+        RailsCacheWurfl.cache.write(ua, handset)
+        write_chopped_cache_entries(ua.chop, WurflPointer.new(ua))
+        puts "DONE: #{ua}"
       end
+      puts "DONE!!!!!!"
       RailsCacheWurfl.cache.write('wurfl_initialized', true)
+    end
+    
+    # This helps with partial matches where there's a firmware
+    # or network id difference. Caching inexpensive so we just 
+    # cache a copy for each character. 
+    def self.write_chopped_cache_entries(ua, pointer)
+      return if ua.length <= 10
+      RailsCacheWurfl.cache.write(ua, pointer)
+      write_chopped_cache_entries(ua.chop, pointer)
     end
 
     def self.refresh_cache
