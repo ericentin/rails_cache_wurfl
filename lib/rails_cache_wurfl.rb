@@ -1,3 +1,4 @@
+$:.unshift File.dirname(__FILE__)
 require 'rails_cache_wurfl/cache_initializer'
 require 'rails_cache_wurfl/view'
 require 'rails_cache_wurfl/filter'
@@ -14,7 +15,8 @@ module RailsCacheWurfl
   
   def self.init
     return nil if Rails.env == 'test'
-    @cache = ActiveSupport::Cache.lookup_store(:mem_cache_store, MEMCACHEDB_ADDRESS)
+    # @cache = ActiveSupport::Cache.lookup_store(:mem_cache_store, MEMCACHEDB_ADDRESS)
+    @cache = ActiveSupport::Cache.lookup_store :redis_store
     #@cache.logger = Rails.logger
     # determine if the cache has been initialized with the wurfl
     CacheInitializer.initialize_cache if RailsCacheWurfl.cache.read('wurfl_initialized').nil?
