@@ -1,3 +1,4 @@
+require File.join(File.dirname(__FILE__), 'wurfl_helpers')
 # Copyright (c) 2003, Ubiquitous Business Technology (http://ubit.com)
 # All rights reserved.
 #
@@ -40,6 +41,7 @@ A class that represents a handset based on information taken from the WURFL.
 class WurflHandset
 
   extend Enumerable
+  include WurflHelpers
 
   attr_accessor :wurfl_id, :user_agent, :fallback
 
@@ -75,6 +77,22 @@ class WurflHandset
     end
     # if it gets this far then no one has the key
     return nil
+  end
+  
+  # Easy accessor for dealing with handset capabilities and 
+  # outputting an easy to parse value
+  def capability(capability)
+    capability = self[capability.to_s]
+    return nil if capability.nil?
+    case capability.strip
+    when /^d+$/
+      capability = capability.to_i
+    when /^true$/i
+      capability = true
+    when /^false$/i
+      capability = false
+    end
+    return capability
   end
 
   # like the above accessor, but also to know who the value

@@ -43,11 +43,31 @@ class WurflLoader
     @handsets = Hash::new
     @fallbacks = Hash::new
   end
+  
+  def process_patch_files(doc, patch_files)
+    Dir.glob(patch_files.to_s).each do |patch_file|
+      puts "<< Processing Patch #{patch_file} >>"
+      process_patch_file(doc, Nokogiri::XML::Document.parse(File.new(patch_file)))
+      puts "<< Patch Processed : #{patch_file} >>"
+    end
+  end
+  
+  def process_patch_file(doc, patch_doc)
+    # Get devices node in main wurfl file
+    devices_node = doc.xpath("wurfl/devices")[0]
+    
+    # Get devices in patch
+    devices_node = patch_doc.xpath("wurfl_patch/devices/device").each do |element|
+      puts "Appending #{element.attribute("id").value} to main wurfl"
+      devices_node.add_child(element)
+    end
+  end
 
-  def load_wurfl(wurflfile)
+  def load_wurfl(wurflfile, patch_files)
     file = File.new(wurflfile)
     doc = Nokogiri::XML::Document.parse file
-
+    
+    process_patch_files(doc, patch_files)
     # read counter
     rcount = 0
 

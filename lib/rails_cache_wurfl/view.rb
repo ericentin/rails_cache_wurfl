@@ -2,23 +2,20 @@ module RailsCacheWurfl
   module View
     
     def handset
-      RailsCacheWurfl.get_handset(session[:handset_agent])
+      @handset ||= RailsCacheWurfl.get_handset(session[:handset_agent])
     end
     
     def handset_capability(capability)
       return nil if handset.nil?
-      capability = handset[capability]
-      return nil if capability.nil?
-      case capability.strip
-      when /^d+$/
-        capability = capability.to_i
-      when /^true$/i
-        capability = true
-      when /^false$/i
-        capability = false
-      end
-      return capability
+      handset.capability(capability)
     end
-
+    
+    def specify_width_if_mobile
+      if handset.is_wireless_device?
+         " style='width:#{(handset_capability(:resolution_width)) ? handset_capability(:resolution_width) : "240"}px;'"
+       elsif session[:force_agent] == :mobile
+         " style='width:240px;'"
+       end
+    end
   end
 end
