@@ -1,0 +1,2 @@
+class WurflPointer < String
+end
